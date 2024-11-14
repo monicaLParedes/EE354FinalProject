@@ -3,7 +3,7 @@ To Do NOW:
 * Finalize Game Logic
 * Test Display of Anything
 * Test displaying of the game (with just pixels)
-* * Program Sprite Movement with Buttons
+* Program Sprite Movement with Buttons
 
 Afterwards:
 * Code collisions with character 
@@ -17,4 +17,3 @@ Afterwards:
    * When obtained final level begins
 * Test Game 
 * Debug
-*
