@@ -51,7 +51,6 @@ module game_sm(Clk, Reset, Start, Ack, Lives, Keys, Enemies, q_I, q_First, q_Sec
                     begin
                         if (Start)
                             state <= FIRST;
-                        
                     end
                 FIRST:
                     begin
