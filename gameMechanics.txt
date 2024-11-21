@@ -1,6 +1,8 @@
 Player:
 Move via buttons
 middle button shoots
+Shooting:
+enemeis should be shot twice before killed
 Enemy:
 Coded to move closer to the player each cycle
 Key:
