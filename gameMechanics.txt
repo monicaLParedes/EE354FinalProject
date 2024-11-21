@@ -1,0 +1,22 @@
+Player:
+Move via buttons
+middle button shoots
+Enemy:
+Coded to move closer to the player each cycle
+Key:
+Level 3
+Door: 
+When collided with and enemies = 0, next level
+Health:
+starts at 100
+for each cycle enemy collides with player, decrease by 20
+when 0 lives--
+Lives:
+total: 2
+when 0 game over
+
+Things we need to display:
+IF key obtained
+How many lives
+Level of player
+Map
