@@ -24,7 +24,11 @@
 module vga_bitchange(
 	input clk,
 	input bright,
-	input button,
+	input BtnU,
+	input BtnD,
+	input BtnL,
+	input BtnR,
+	input BtnC,
 	input [9:0] hCount, vCount,
 	output reg [11:0] rgb,
 	output reg [15:0] score
@@ -65,7 +69,7 @@ module vga_bitchange(
 		begin
 		greenMiddleSquareSpeed = 50'd0;
 		
-		if ((button == 1'b1) && (greenMiddleSquareY < 10'd475))
+		if ((BtnU == 1'b1) && (greenMiddleSquareY < 10'd475))
 		  begin
 		  count = count + 1;
 		  
@@ -73,12 +77,12 @@ module vga_bitchange(
 		      greenMiddleSquareY = greenMiddleSquareY + 10'd001;
 		  end
 		  
-		if (button == 1'b0)
+		if (BtnU == 1'b0)
 		  count = 0;
 	   end
 
 	/*always@ (posedge clk)
-		if ((reset == 1'b0) && (button == 1'b1) && (hCount >= 10'd144) && (hCount <= 10'd784) && (greenMiddleSquareY >= 10'd400) && (greenMiddleSquareY <= 10'd475))
+		if ((reset == 1'b0) && (BtnU == 1'b1) && (hCount >= 10'd144) && (hCount <= 10'd784) && (greenMiddleSquareY >= 10'd400) && (greenMiddleSquareY <= 10'd475))
 			begin
 			score = score + 16'd1;
 			reset = 1'b1;
