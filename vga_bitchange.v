@@ -35,8 +35,8 @@ module vga_bitchange(
     output q_Second, 
     output q_Third, 
     output q_Final, 
-    output q_Win
-	
+    output q_Win,
+
 	input [9:0] hCount, vCount,
 	output reg [11:0] rgb,
 	output wire wonFirstRound,
