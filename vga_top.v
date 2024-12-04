@@ -20,6 +20,7 @@ module vga_top(
 	input BtnD,
 	input Sw0,
 	input Sw1,
+	input Sw2,
 	
 	//VGA signal
 	output hSync, vSync,
@@ -43,8 +44,7 @@ module vga_top(
 	wire Reset;
 	assign Reset = Sw0;
 
-	reg [5:0] state;
-
+	wire [5:0] state;
 	wire wonFirstRound;
 	wire wonSecondRound;
 	wire wonThirdRound;
@@ -67,7 +67,7 @@ module vga_top(
 		.wonFirstRound(wonFirstRound), 
 		.wonSecondRound(wonSecondRound), 
 		.wonThirdRound(wonThirdRound), 
-		.wonFourthRound(wonFourthRound)
+		.wonFourthRound(wonFourthRound),
 		.collidedWithEnemy(collidedWithEnemy)
 	);
 
@@ -88,7 +88,7 @@ module vga_top(
 		.wonFourthRound(wonFourthRound),
 		.collidedWithEnemy(collidedWithEnemy),
 		.state(state)
-	)
+	);
 	
 	counter cnt(.clk(ClkPort), .displayNumber(score), .anode(anode), .ssdOut(ssdOut));
 	

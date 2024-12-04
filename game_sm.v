@@ -37,12 +37,12 @@ module game_sm(
 	// assign { q_Win, q_Final, q_Third, q_Second, q_First, q_I } = state;
 		
 	localparam
-	    INI = 6'b000001;
-        FIRST = 6'b000010;
-        SECOND = 6'b000100;
-        THIRD = 6'b001000;
-        FIN = 6'b010000;
-        WIN = 6'b100000;
+	    INI = 6'b000001,
+        FIRST = 6'b000010,
+        SECOND = 6'b000100,
+        THIRD = 6'b001000,
+        FIN = 6'b010000,
+        WIN = 6'b100000,
         UNK = 6'bXXXXXX;
 	
     // OFL
