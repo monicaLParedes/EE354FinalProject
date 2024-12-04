@@ -18,6 +18,8 @@ module vga_top(
 	input BtnL,
 	input BtnR,
 	input BtnD,
+	input Sw0,
+	input Sw1,
 	
 	//VGA signal
 	output hSync, vSync,
@@ -31,13 +33,63 @@ module vga_top(
 	);
 	
 	wire bright;
-	wire[9:0] hc, vc;
-	wire[15:0] score;
+	wire [9:0] hc, vc;
+	wire [15:0] score;
 	wire [6:0] ssdOut;
 	wire [3:0] anode;
 	wire [11:0] rgb;
 	display_controller dc(.clk(ClkPort), .hSync(hSync), .vSync(vSync), .bright(bright), .hCount(hc), .vCount(vc));
-	vga_bitchange vbc(.clk(ClkPort), .bright(bright), .BtnU(BtnU), .BtnD(BtnD), .BtnL(BtnL), .BtnR(BtnR), .BtnC(BtnC), .hCount(hc), .vCount(vc), .rgb(rgb), .score(score));
+
+	wire Reset;
+	assign Reset = Sw0;
+
+	reg [5:0] state;
+
+	wire wonFirstRound;
+	wire wonSecondRound;
+	wire wonThirdRound;
+	wire wonFourthRound;
+	wire collidedWithEnemy;
+
+	vga_bitchange vbc(
+		.clk(ClkPort), 
+		.reset(Reset),
+		.bright(bright), 
+		.BtnU(BtnU), 
+		.BtnD(BtnD), 
+		.BtnL(BtnL), 
+		.BtnR(BtnR), 
+		.BtnC(BtnC), 
+		.hCount(hc), 
+		.vCount(vc), 
+		.state(state),
+		.rgb(rgb), 
+		.wonFirstRound(wonFirstRound), 
+		.wonSecondRound(wonSecondRound), 
+		.wonThirdRound(wonThirdRound), 
+		.wonFourthRound(wonFourthRound)
+		.collidedWithEnemy(collidedWithEnemy)
+	);
+
+	wire Ack;
+	assign Ack = Sw2;
+
+	wire Start;
+	assign Start = Sw1;
+
+	game_sm sm(
+		.Clk(ClkPort),
+		.Reset(Reset),
+		.Start(Start),
+		.Ack(Ack),
+		.wonFirstRound(wonFirstRound), 
+		.wonSecondRound(wonSecondRound), 
+		.wonThirdRound(wonThirdRound), 
+		.wonFourthRound(wonFourthRound),
+		.collidedWithEnemy(collidedWithEnemy),
+		.state(state)
+	)
+	
 	counter cnt(.clk(ClkPort), .displayNumber(score), .anode(anode), .ssdOut(ssdOut));
 	
 	assign Dp = 1;

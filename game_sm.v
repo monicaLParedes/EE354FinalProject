@@ -13,20 +13,28 @@
 
 `timescale 1ns / 1ps
 
-module game_sm(Clk, Reset, Start, Ack, Lives, Keys, Enemies, q_I, q_First, q_Second, q_Third, q_Final, q_Win);
+module game_sm(
+    input Clk, 
+    input Reset, 
+    input Start, 
+    input Ack, 
+    input wonFirstRound,
+    input wonSecondRound,
+    input wonThirdRound,
+    input wonFourthRound,
+    input collidedWithEnemy,
+    output reg [5:0] state
+    // output q_I, 
+    // output q_First, 
+    // output q_Second, 
+    // output q_Third, 
+    // output q_Final, 
+    // output q_Win
+    );
 
-	/*  INPUTS */
-    input Start, Ack, Clk, Reset;
-    input Enemies;
-    input Keys;
-    input Lives;
-	
-	/*  OUTPUTS */
-    output q_I, q_First, q_Second, q_Third, q_Final, q_Win;
-
-	// store current state
-	reg [5:0] state;
-	assign { q_Win, q_Final, q_Third, q_Second, q_First, q_I } = state;
+	//// store current state
+	// reg [5:0] state;
+	// assign { q_Win, q_Final, q_Third, q_Second, q_First, q_I } = state;
 		
 	localparam
 	    INI = 6'b000001;
@@ -54,34 +62,34 @@ module game_sm(Clk, Reset, Start, Ack, Lives, Keys, Enemies, q_I, q_First, q_Sec
                     end
                 FIRST:
                     begin
-                        if (Enemies == 0) 
+                        if (wonFirstRound) 
                             state <= SECOND;
                         
-                        if (Lives == 0)
+                        if (collidedWithEnemy)
                             state <= INI;
                     end
 				SECOND:
                     begin
-                        if (Enemies == 0)
+                        if (wonSecondRound)
                             state <= THIRD;
 
-                        if (Lives == 0)
+                        if (collidedWithEnemy)
                             state <= INI;
                     end
                 THIRD:
                     begin
-                        if (Enemies == 0 && Keys == 1)
+                        if (wonThirdRound)
                             state <= FIN;
 
-                        if (Lives == 0)
+                        if (collidedWithEnemy)
                             state <= INI;
                     end
                 FIN:
                     begin
-                        if (Enemies == 0)
+                        if (wonFourthRound)
                             state <= WIN;
                         
-                        if (Lives == 0)
+                        if (collidedWithEnemy)
                             state <= INI;
                     end
                 WIN:
